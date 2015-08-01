@@ -1,0 +1,7 @@
+<resources>
+    <string name="create">Add</string>
+    <string name="retrieve">Retrieve</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="title_crud">CrudActivity</string>
+</resources>

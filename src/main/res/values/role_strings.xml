@@ -1,0 +1,5 @@
+<resources>
+    <string name="role_type">Role Type</string>
+    <string name="title_activity_role">RoleActivity</string>
+    <string name="role_activity">Manage Roles</string>
+</resources>
