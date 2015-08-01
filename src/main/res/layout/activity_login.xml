@@ -27,6 +27,12 @@
             android:text="@string/role_activity"
             android:onClick="roleActivity"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user_activity"
+            android:onClick="userActivity"/>
+
 
 </LinearLayout>
 

@@ -27,7 +27,15 @@
         <activity
             android:name=".project_one.controller.RoleActivity"
             android:label="@string/title_activity_role"
-            android:parentActivityName=".project_one.controller.LoginActivity">
+            android:parentActivityName=".project_one.controller.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".project_one.controller.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".project_one.controller.UserActivity"
+            android:label="@string/title_activity_user"
+            android:parentActivityName=".project_one.controller.LoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".project_one.controller.LoginActivity" />

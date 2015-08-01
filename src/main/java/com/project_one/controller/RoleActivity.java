@@ -41,7 +41,6 @@ public class RoleActivity extends Activity {
 
     /** Called when the user clicks the Send button */
     public void create(View view) throws SQLException {
-
         EditText roleTypeEditText = (EditText) findViewById(R.id.type);
         String roleType = roleTypeEditText.getText().toString();
         RoleService roleServiceImpl = new RoleServiceImpl(context);
