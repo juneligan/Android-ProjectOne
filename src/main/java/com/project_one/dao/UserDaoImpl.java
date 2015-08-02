@@ -1,6 +1,5 @@
 package com.project_one.dao;
 
-import android.app.ActionBar;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -61,7 +60,7 @@ public class UserDaoImpl implements UserDao {
 //        Cursor cursor = database.query(TableData.TableUser.TABLE_NAME, allColumns,
 //                TableData.TableUser._ID + " = " + insertId, null, null, null, null);
         cursor.moveToFirst();
-        User newUser = cursorToUser(cursor);
+        User newUser = cursorToUserWithRole(cursor);
         cursor.close();
         return newUser;
     }
@@ -77,7 +76,7 @@ public class UserDaoImpl implements UserDao {
 
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            User user = cursorToUser(cursor);
+            User user = cursorToUserWithRole(cursor);
             listOfUsers.add(user);
             cursor.moveToNext();
         }
@@ -86,14 +85,40 @@ public class UserDaoImpl implements UserDao {
         return listOfUsers;
     }
 
+    @Override
+    public boolean authenticateUser(User user) {
+
+        Cursor cursor = database.query(TableData.TableUser.TABLE_NAME, allColumns,
+                TableData.TableUser.USERNAME + " = ? AND " + TableData.TableUser.PASSWORD + " = ?",
+                new String[] { String.valueOf(user.getUsername()), String.valueOf(user.getPassword())}, null, null, null, null);
+
+        cursor.moveToFirst();
+        User existingUser = cursorToUser(cursor);
+        return isNotEmpty(existingUser);
+    }
+
     private User cursorToUser(Cursor cursor) {
         User user = new User();
         user.setId(cursor.getLong(0));
         user.setUsername(cursor.getString(1));
+        return user;
+    }
+
+    private boolean isNotEmpty(User user) {
+        return user != null;
+    }
+
+    private User cursorToUserWithRole(Cursor cursor) {
+        User user = cursorToUser(cursor);
+        Role role = cursorToRole(cursor);
+        user.setRole(role);
+        return user;
+    }
+
+    private Role cursorToRole(Cursor cursor) {
         Role role = new Role();
         role.setId(cursor.getLong(2));
         role.setType(cursor.getString(3));
-        user.setRole(role);
-        return user;
+        return role;
     }
 }

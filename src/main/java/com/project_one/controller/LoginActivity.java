@@ -9,9 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.R;
 import com.example.jenunagil.myfirstapp.DisplayMessageActivity;
+import com.project_one.model.User;
 import com.project_one.service.UserService;
 import com.project_one.service.UserServiceImpl;
 
@@ -47,27 +49,19 @@ public class LoginActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /** Called when the user clicks the Send button */
-    public void create(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText usernameEditText = (EditText) findViewById(R.id.username);
-        EditText passwordEditText = (EditText) findViewById(R.id.password);
-        String username = usernameEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-//        UserService userServiceImpl = new UserServiceImpl(context);
-//        userServiceImpl.setContext(context);
-//        userServiceImpl.createUser(2L, username, password);
-        intent.putExtra(EXTRA_MESSAGE, username);
-        startActivity(intent);
-    }
+    public void authenticateUser(View view) {
+        EditText usernameText = (EditText) findViewById(R.id.username);
+        EditText passwordText = (EditText) findViewById(R.id.password);
+        User user = new User();
+        user.setUsername(usernameText.getText().toString());
+        user.setPassword(passwordText.getText().toString());
 
-    public void roleActivity(View view) {
-        Intent intent = new Intent(this, RoleActivity.class);
-        startActivity(intent);
-    }
-
-    public void userActivity(View view) {
-        Intent intent = new Intent(this, UserActivity.class);
-        startActivity(intent);
+        UserService userService = new UserServiceImpl(context);
+        if(!userService.authenticateUser(user)) {
+            Toast.makeText(context, "Invalid username/password", Toast.LENGTH_LONG).show();
+        } else {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
     }
 }

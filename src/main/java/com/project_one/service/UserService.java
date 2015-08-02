@@ -16,4 +16,6 @@ public interface UserService {
     public User createUser(Long roleId, String username, String password);
 
     public List<User> fetchAllUsers();
+
+    public boolean authenticateUser(User user);
 }

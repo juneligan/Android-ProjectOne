@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
     public List<User> fetchAllUsers() {
         return userDaoImpl.fetchAllUsers();
     }
+
+    @Override
+    public boolean authenticateUser(User user) {
+        return userDaoImpl.authenticateUser(user);
+    }
 }

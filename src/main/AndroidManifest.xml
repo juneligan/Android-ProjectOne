@@ -40,6 +40,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".project_one.controller.LoginActivity" />
         </activity>
+        <activity
+            android:name=".project_one.controller.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:parentActivityName=".project_one.controller.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".project_one.controller.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>
