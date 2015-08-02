@@ -4,16 +4,40 @@
     android:orientation="vertical"
     tools:context="com.project_one.controller.UserActivity">
 
-    <EditText android:id="@+id/type"
+    <EditText android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/user_activity"/>
+        android:hint="@string/user_management_username"/>
+
+    <EditText android:id="@+id/password"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/user_management_password"/>
+
+    <EditText android:id="@+id/confirmPassword"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/user_management_confirmPassword"/>
+
+    <Spinner
+        android:id="@+id/list_of_roles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/create"
         android:onClick="create"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/retrieve"
+        android:onClick="fetchAllUsers"/>
 
 
 </LinearLayout>

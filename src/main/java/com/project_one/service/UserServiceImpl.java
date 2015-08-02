@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
         this.context = context;
     }
 
-    public User createUser(int roleId, String username, String password) {
+    public User createUser(Long roleId, String username, String password) {
         return userDaoImpl.createUser(roleId, username, password);
     }
 

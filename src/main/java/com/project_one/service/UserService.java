@@ -13,7 +13,7 @@ public interface UserService {
 
     public void setContext(Context context);
 
-    public User createUser(int roleId, String username, String password);
+    public User createUser(Long roleId, String username, String password);
 
     public List<User> fetchAllUsers();
 }

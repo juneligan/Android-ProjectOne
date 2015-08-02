@@ -8,7 +8,7 @@ import java.util.List;
  * Created by JenuNagil on 7/28/2015.
  */
 public interface UserDao {
-    public User createUser(int roleId, String username, String password);
+    public User createUser(Long roleId, String username, String password);
 
     public List<User> fetchAllUsers();
 }

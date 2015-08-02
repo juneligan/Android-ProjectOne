@@ -47,16 +47,16 @@ public class UserDaoImpl implements UserDao {
         dbHelper.close();
     }
 
-    public User createUser(int roleId, String username, String password) {
+    public User createUser(Long roleId, String username, String password) {
         ContentValues values = new ContentValues();
         values.put(TableData.TableUser.USERNAME, username);
         values.put(TableData.TableUser.PASSWORD, password);
         values.put(TableData.TableUser.ROLE_ID, roleId);
         long insertId = database.insert(TableData.TableUser.TABLE_NAME, null, values);
         Log.d(TAG, "Insert user data " + username + " and " + password);
-        String query = "SELECT User.id, User.username, User.roleId, Role.type " +
-                "FROM User INNER JOIN Role ON User.roleId=Role.id " +
-                "WHERE User.id = "+insertId + ";";
+        String query = "SELECT User._id, User.username, User.role_id, Role.type " +
+                "FROM User INNER JOIN Role ON User.role_id=Role._id " +
+                "WHERE User._id = "+insertId + ";";
         Cursor cursor = database.rawQuery(query, null);
 //        Cursor cursor = database.query(TableData.TableUser.TABLE_NAME, allColumns,
 //                TableData.TableUser._ID + " = " + insertId, null, null, null, null);
@@ -71,8 +71,8 @@ public class UserDaoImpl implements UserDao {
 //        Cursor cursor = database.query(TableData.TableUser.TABLE_NAME, allColumns,
 //                null, null, null, null, null);
 
-        String query = "SELECT User.id, User.username, User.roleId, Role.type " +
-                "FROM User INNER JOIN Role ON User.roleId=Role.id;";
+        String query = "SELECT User._id, User.username, User.role_id, Role.type " +
+                "FROM User INNER JOIN Role ON User.role_id=Role._id;";
         Cursor cursor = database.rawQuery(query, null);
 
         cursor.moveToFirst();

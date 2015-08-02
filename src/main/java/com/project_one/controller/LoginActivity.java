@@ -54,9 +54,9 @@ public class LoginActivity extends Activity {
         EditText passwordEditText = (EditText) findViewById(R.id.password);
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        UserService userServiceImpl = new UserServiceImpl(context);
-        userServiceImpl.setContext(context);
-        userServiceImpl.createUser(2, username, password);
+//        UserService userServiceImpl = new UserServiceImpl(context);
+//        userServiceImpl.setContext(context);
+//        userServiceImpl.createUser(2L, username, password);
         intent.putExtra(EXTRA_MESSAGE, username);
         startActivity(intent);
     }

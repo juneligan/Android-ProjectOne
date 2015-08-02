@@ -8,5 +8,4 @@
     <string name="title_activity_display_message">My Message</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_user">UserActivity</string>
 </resources>
