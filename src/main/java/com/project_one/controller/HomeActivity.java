@@ -42,4 +42,9 @@ public class HomeActivity extends Activity {
         Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
     }
+
+    public void categoryActivity(View view) {
+        Intent intent = new Intent(this, CategoryActivity.class);
+        startActivity(intent);
+    }
 }

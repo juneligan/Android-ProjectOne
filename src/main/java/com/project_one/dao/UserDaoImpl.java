@@ -90,11 +90,11 @@ public class UserDaoImpl implements UserDao {
 
         Cursor cursor = database.query(TableData.TableUser.TABLE_NAME, allColumns,
                 TableData.TableUser.USERNAME + " = ? AND " + TableData.TableUser.PASSWORD + " = ?",
-                new String[] { String.valueOf(user.getUsername()), String.valueOf(user.getPassword())}, null, null, null, null);
+                new String[]{String.valueOf(user.getUsername()), String.valueOf(user.getPassword())}, null, null, null, null);
 
         cursor.moveToFirst();
-        User existingUser = cursorToUser(cursor);
-        return isNotEmpty(existingUser);
+
+        return cursor.getCount() == 1;
     }
 
     private User cursorToUser(Cursor cursor) {
