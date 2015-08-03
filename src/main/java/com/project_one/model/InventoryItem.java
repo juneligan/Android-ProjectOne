@@ -7,6 +7,7 @@ public class InventoryItem {
 
     private Product product;
     private int quantity;
+    private Category category;
 
     public InventoryItem() {
         product = new Product();
@@ -26,5 +27,13 @@ public class InventoryItem {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }

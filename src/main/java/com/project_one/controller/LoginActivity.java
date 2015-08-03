@@ -64,4 +64,24 @@ public class LoginActivity extends Activity {
             startActivity(intent);
         }
     }
+
+    public void roleActivity(View view) {
+        Intent intent = new Intent(this, RoleActivity.class);
+        startActivity(intent);
+    }
+
+    public void userActivity(View view) {
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
+    }
+
+    public void categoryActivity(View view) {
+        Intent intent = new Intent(this, CategoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void productActivity(View view) {
+        Intent intent = new Intent(this, ProductActivity.class);
+        startActivity(intent);
+    }
 }

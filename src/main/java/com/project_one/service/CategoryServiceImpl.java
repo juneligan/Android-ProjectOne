@@ -15,6 +15,7 @@ public class CategoryServiceImpl implements CategoryService {
     private Context context;
     private CategoryDao categoryDaoImpl;
     public CategoryServiceImpl(Context context) {
+        this.context = context;
         categoryDaoImpl = new CategoryDaoImpl(context);
     }
 

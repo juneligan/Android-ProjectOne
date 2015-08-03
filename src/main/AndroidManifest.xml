@@ -56,6 +56,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".project_one.controller.LoginActivity" />
         </activity>
+        <activity
+            android:name=".project_one.controller.ProductActivity"
+            android:label="@string/title_activity_product" >
+        </activity>
     </application>
 
 </manifest>

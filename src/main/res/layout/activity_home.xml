@@ -23,5 +23,11 @@
         android:text="@string/category_activity"
         android:onClick="categoryActivity"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/product_activity"
+        android:onClick="productActivity"/>
+
 
 </LinearLayout>

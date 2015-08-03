@@ -85,6 +85,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     private Role cursorToRole(Cursor cursor) {
+        if(cursor.getCount() == 0) return null;
         Role role = new Role();
         role.setId(cursor.getLong(0));
         role.setType(cursor.getString(1));
