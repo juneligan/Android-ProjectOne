@@ -8,6 +8,7 @@ import com.project_one.model.Category;
 import com.project_one.model.InventoryItem;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by JenuNagil on 8/3/2015.
@@ -45,5 +46,10 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     @Override
     public InventoryItem fetchInventoryItemByNameAndCategory(String productName, Category category) {
         return inventoryItemDaoimpl.fetchInventoryItemByNameAndCategory(productName, category);
+    }
+
+    @Override
+    public List<InventoryItem> fetchAllItems() {
+        return inventoryItemDaoimpl.fetchAllItems();
     }
 }

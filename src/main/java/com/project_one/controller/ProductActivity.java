@@ -1,8 +1,10 @@
 package com.project_one.controller;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -29,7 +31,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductActivity extends Activity {
+public class ProductActivity extends ListActivity {
 
     private Context context = this;
     private Spinner spinner;
@@ -39,6 +41,7 @@ public class ProductActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         displayCategories();
+        displayProducts();
     }
 
     private void displayCategories() {
@@ -47,6 +50,24 @@ public class ProductActivity extends Activity {
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeOfCategories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+    }
+
+    private void displayProducts() {
+        InventoryItemService inventoryItemServiceImpl;
+        List<String> productNames = new ArrayList<String>();
+        try {
+            inventoryItemServiceImpl = new InventoryItemServiceImpl(context);
+
+            for(InventoryItem inventoryItem : inventoryItemServiceImpl.fetchAllItems()) {
+                Log.d("Controller", inventoryItem.getProduct().getName());
+                productNames.add(inventoryItem.getProduct().getName());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, productNames);
+        setListAdapter(adapter);
     }
 
     private List<String> fetchTypeOfCategory() {
@@ -90,6 +111,9 @@ public class ProductActivity extends Activity {
         Category category = categoryService.fetchCategoryByName(selectedCategory);
         if(category == null) {
             Toast.makeText(context, "Category is not yet initialize", Toast.LENGTH_LONG).show();
+        } else if(productName.equals("")) {
+            Toast.makeText(context, "Name field must not be empty", Toast.LENGTH_LONG).show();
+            return;
         }
 
         InventoryItem existingInventoryItem = inventoryItemServiceImpl.fetchInventoryItemByNameAndCategory(productName, category);

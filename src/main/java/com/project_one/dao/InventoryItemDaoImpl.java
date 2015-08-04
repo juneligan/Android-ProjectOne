@@ -14,6 +14,8 @@ import com.project_one.utils.DatabaseHelper;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by JenuNagil on 8/3/2015.
@@ -129,5 +131,24 @@ public class InventoryItemDaoImpl implements InventoryItemDao {
         cursor.close();
 
         return newItem;
+    }
+
+    @Override
+    public List<InventoryItem> fetchAllItems() {
+
+        String query = "SELECT InventoryItem._id, InventoryItem.product_id, Product.product_name, " +
+                "Product.unit_price, InventoryItem.category_id, Category.name, InventoryItem.inventory_quantity, InventoryItem.added_date " +
+                "FROM InventoryItem INNER JOIN Product ON InventoryItem.product_id=Product._id " +
+                "INNER JOIN Category ON InventoryItem.category_id=Category._id ;";
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        List<InventoryItem> listOfProductItems = new ArrayList<InventoryItem>();
+        while(!cursor.isAfterLast()) {
+            InventoryItem newItem = cursorToInventoryItemWithProductAndCategory(cursor);
+            listOfProductItems.add(newItem);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return listOfProductItems;
     }
 }
