@@ -5,12 +5,21 @@ package com.project_one.model;
  */
 public class InventoryItem {
 
+    private Long id;
     private Product product;
     private int quantity;
     private Category category;
 
     public InventoryItem() {
         product = new Product();
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setProduct(Product product) {

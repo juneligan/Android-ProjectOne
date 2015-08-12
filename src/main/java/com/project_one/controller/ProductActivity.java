@@ -1,30 +1,29 @@
 package com.project_one.controller;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.R;
 import com.project_one.model.Category;
 import com.project_one.model.InventoryItem;
 import com.project_one.model.Product;
-import com.project_one.model.Role;
 import com.project_one.service.CategoryService;
 import com.project_one.service.CategoryServiceImpl;
 import com.project_one.service.InventoryItemService;
 import com.project_one.service.InventoryItemServiceImpl;
-import com.project_one.service.RoleService;
-import com.project_one.service.RoleServiceImpl;
-import com.project_one.service.UserService;
-import com.project_one.service.UserServiceImpl;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -62,12 +61,19 @@ public class ProductActivity extends ListActivity {
                 Log.d("Controller", inventoryItem.getProduct().getName());
                 productNames.add(inventoryItem.getProduct().getName());
             }
+
+
+            CustomAdapterHolder customAdapterHolder = new CustomAdapterHolder(ProductActivity.this, R.layout.list_row, inventoryItemServiceImpl.fetchAllItems());
+            customAdapterHolder.setActivity(ProductActivity.this);
+            setListAdapter(customAdapterHolder.getCustomInventoryArrayAdapter());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, productNames);
-        setListAdapter(adapter);
+
+//        thadapter = new CustomThumbnailAdapter(ProductActivity.this, R.layout.list_row, productNames);
+//        CustomAdapterHolder.CustomInventoryArrayAdapter customInventoryArrayAdapter;
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                R.layout.list_row, productNames);
     }
 
     private List<String> fetchTypeOfCategory() {
@@ -131,6 +137,7 @@ public class ProductActivity extends ListActivity {
 
             inventoryItemServiceImpl.create(inventoryItem);
             Toast.makeText(context, "New item added successfully", Toast.LENGTH_LONG).show();
+            displayProducts();
         }
     }
 

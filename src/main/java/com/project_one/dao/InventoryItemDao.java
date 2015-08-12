@@ -22,4 +22,6 @@ public interface InventoryItemDao {
     public InventoryItem fetchInventoryItemByNameAndCategory(String productName, Category category);
 
     public List<InventoryItem> fetchAllItems();
+
+    public InventoryItem update(InventoryItem updatedItem) throws SQLException;
 }

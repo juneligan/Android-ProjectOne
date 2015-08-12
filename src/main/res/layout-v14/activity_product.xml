@@ -4,11 +4,6 @@
     android:orientation="vertical"
     tools:context="com.project_one.controller.ProductActivity">
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView" >
     <EditText android:id="@+id/product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +37,20 @@
         android:layout_height="wrap_content">
 
     </ListView>
-    </ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" />
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridView"
+        android:layout_gravity="center_horizontal" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="41dp"></GridLayout>
 
 </LinearLayout>

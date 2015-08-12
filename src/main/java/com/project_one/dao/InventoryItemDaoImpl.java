@@ -97,6 +97,7 @@ public class InventoryItemDaoImpl implements InventoryItemDao {
         category.setName(cursor.getString(5));
 
         InventoryItem inventoryItem = new InventoryItem();
+        inventoryItem.setId(cursor.getLong(0));
         inventoryItem.setProduct(product);
         inventoryItem.setCategory(category);
         return inventoryItem;
@@ -104,7 +105,19 @@ public class InventoryItemDaoImpl implements InventoryItemDao {
 
     @Override
     public InventoryItem fetchInventoryItemById(Long itemId) {
-        return null;
+
+        String query = "SELECT InventoryItem._id, InventoryItem.product_id, Product.product_name, " +
+                "Product.unit_price, InventoryItem.category_id, Category.name, InventoryItem.inventory_quantity, InventoryItem.added_date " +
+                "FROM InventoryItem INNER JOIN Product ON InventoryItem.product_id=Product._id " +
+                "INNER JOIN Category ON InventoryItem.category_id=Category._id " +
+                "WHERE InventoryItem.product_id = "+itemId+";";
+        Log.d(TAG, itemId.toString());
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        InventoryItem newItem = cursorToInventoryItemWithProductAndCategory(cursor);
+        cursor.close();
+
+        return newItem;
     }
 
     @Override
@@ -150,5 +163,40 @@ public class InventoryItemDaoImpl implements InventoryItemDao {
         }
         cursor.close();
         return listOfProductItems;
+    }
+
+    @Override
+    public InventoryItem update(InventoryItem updatedItem) throws SQLException {
+        database.beginTransaction();
+        try {
+            ContentValues productValues = new ContentValues();
+            productValues.put(TableData.TableProduct.PRODUCT_NAME, updatedItem.getProduct().getName());
+            productValues.put(TableData.TableProduct.UNIT_PRICE, updatedItem.getProduct().getUnitPrice().toString());
+
+            long updatedProductId = database.update(TableData.TableProduct.TABLE_NAME, productValues, null, null);
+
+            ContentValues inventoryItemValues = new ContentValues();
+            inventoryItemValues.put(TableData.TableInventoryItem.CATEGORY_ID, updatedItem.getCategory().getId());
+            inventoryItemValues.put(TableData.TableInventoryItem.INVENTORY_QUANTITY, updatedItem.getQuantity());
+
+            long updatedInventoryItemId = database.update(TableData.TableInventoryItem.TABLE_NAME, inventoryItemValues, null, null);
+
+            String query = "SELECT InventoryItem._id, InventoryItem.product_id, Product.product_name, " +
+                    "Product.unit_price, InventoryItem.category_id, Category.name, InventoryItem.inventory_quantity, InventoryItem.added_date " +
+                    "FROM InventoryItem INNER JOIN Product ON InventoryItem.product_id=Product._id " +
+                    "INNER JOIN Category ON InventoryItem.category_id=Category._id " +
+                    "WHERE InventoryItem._id = "+updatedInventoryItemId + ";";
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            InventoryItem newInventory = cursorToInventoryItemWithProductAndCategory(cursor);
+            cursor.close();
+            Log.d(TAG, "updated successfully");
+            database.setTransactionSuccessful();
+            return newInventory;
+        } catch(Exception e) {
+            throw new SQLException();
+        } finally {
+            database.endTransaction();
+        }
     }
 }

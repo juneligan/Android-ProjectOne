@@ -6,6 +6,7 @@ import com.project_one.dao.InventoryItemDao;
 import com.project_one.dao.InventoryItemDaoImpl;
 import com.project_one.model.Category;
 import com.project_one.model.InventoryItem;
+import com.project_one.model.Product;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -30,7 +31,7 @@ public class InventoryItemServiceImpl implements InventoryItemService {
 
     @Override
     public InventoryItem fetchInventoryItemById(Long itemId) {
-        return null;
+        return inventoryItemDaoimpl.fetchInventoryItemById(itemId);
     }
 
     @Override
@@ -51,5 +52,23 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     @Override
     public List<InventoryItem> fetchAllItems() {
         return inventoryItemDaoimpl.fetchAllItems();
+    }
+
+    @Override
+    public InventoryItem addQuantity(Product product, int quantityToBeAdded) {
+        InventoryItem inventoryItem = fetchInventoryItemById(product.getId());
+
+        int quantity = inventoryItem.getQuantity() + quantityToBeAdded;
+        inventoryItem.setQuantity(quantity);
+        return update(inventoryItem);
+    }
+
+    public InventoryItem update(InventoryItem updatedItem) {
+        try {
+            return inventoryItemDaoimpl.update(updatedItem);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

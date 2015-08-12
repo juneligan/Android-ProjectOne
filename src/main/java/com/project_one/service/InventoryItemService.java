@@ -2,6 +2,7 @@ package com.project_one.service;
 
 import com.project_one.model.Category;
 import com.project_one.model.InventoryItem;
+import com.project_one.model.Product;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,4 +23,6 @@ public interface InventoryItemService {
     public InventoryItem fetchInventoryItemByNameAndCategory(String productName, Category category);
 
     public List<InventoryItem> fetchAllItems();
+
+    public InventoryItem addQuantity(Product product, int newQuantity);
 }
