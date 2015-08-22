@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.R;
-import com.example.jenunagil.myfirstapp.DisplayMessageActivity;
+import com.project_one.controller.api.v1.fragment.product.ProductViewPagerActivity;
 import com.project_one.model.User;
 import com.project_one.service.UserService;
 import com.project_one.service.UserServiceImpl;
@@ -81,7 +80,7 @@ public class LoginActivity extends Activity {
     }
 
     public void productActivity(View view) {
-        Intent intent = new Intent(this, ProductActivity.class);
+        Intent intent = new Intent(this, ProductViewPagerActivity.class);
         startActivity(intent);
     }
 }

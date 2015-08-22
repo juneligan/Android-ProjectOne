@@ -2,13 +2,12 @@ package com.project_one.controller;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.R;
+import com.project_one.controller.api.v1.fragment.product.ProductViewPagerActivity;
 
 public class HomeActivity extends Activity {
 
@@ -49,7 +48,7 @@ public class HomeActivity extends Activity {
     }
 
     public void productActivity(View view) {
-        Intent intent = new Intent(this, ProductActivity.class);
+        Intent intent = new Intent(this, ProductViewPagerActivity.class);
         startActivity(intent);
     }
 }

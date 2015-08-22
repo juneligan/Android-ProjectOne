@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
 
     public UserDaoImpl(Context context) throws SQLException {
         this.context = context;
-        dbHelper = new DatabaseHelper(context);
+        dbHelper =DatabaseHelper.getInstance(context);
         open();
     }
 

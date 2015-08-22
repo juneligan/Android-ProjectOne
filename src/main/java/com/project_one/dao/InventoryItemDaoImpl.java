@@ -21,21 +21,27 @@ import java.util.List;
  * Created by JenuNagil on 8/3/2015.
  */
 public class InventoryItemDaoImpl implements InventoryItemDao {
-    public static final String TAG = "UserDao";
+    public static final String TAG = "InventoryItemDao";
 
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
     private Context context;
-    private String[] allColumns = {
-            TableData.TableUser._ID,
-            TableData.TableUser.USERNAME,
-            TableData.TableUser.ROLE_ID,
-            TableData.TableUser.PASSWORD
+    private String[] allProductColumns = {
+            TableData.TableProduct._ID,
+            TableData.TableProduct.PRODUCT_NAME,
+            TableData.TableProduct.UNIT_PRICE
+    };
+    private String[] allInventoryColumns = {
+            TableData.TableInventoryItem._ID,
+            TableData.TableInventoryItem.PRODUCT_ID,
+            TableData.TableInventoryItem.INVENTORY_QUANTITY,
+            TableData.TableInventoryItem.CATEGORY_ID,
+            TableData.TableInventoryItem.ADDED_DATE
     };
 
     public InventoryItemDaoImpl(Context context) throws SQLException {
         this.context = context;
-        dbHelper = new DatabaseHelper(context);
+        dbHelper = DatabaseHelper.getInstance(context);
         open();
     }
 
@@ -100,6 +106,7 @@ public class InventoryItemDaoImpl implements InventoryItemDao {
         inventoryItem.setId(cursor.getLong(0));
         inventoryItem.setProduct(product);
         inventoryItem.setCategory(category);
+        inventoryItem.setQuantity(cursor.getInt(6));
         return inventoryItem;
     }
 
@@ -168,29 +175,37 @@ public class InventoryItemDaoImpl implements InventoryItemDao {
     @Override
     public InventoryItem update(InventoryItem updatedItem) throws SQLException {
         database.beginTransaction();
+        InventoryItem newInventory;
         try {
             ContentValues productValues = new ContentValues();
             productValues.put(TableData.TableProduct.PRODUCT_NAME, updatedItem.getProduct().getName());
             productValues.put(TableData.TableProduct.UNIT_PRICE, updatedItem.getProduct().getUnitPrice().toString());
 
-            long updatedProductId = database.update(TableData.TableProduct.TABLE_NAME, productValues, null, null);
+            long numberOfUpdatedProducts = database.update(TableData.TableProduct.TABLE_NAME, productValues, TableData.TableProduct._ID + " = ?",
+                    new String[] { String.valueOf(updatedItem.getProduct().getId()) } );
+
+            if(numberOfUpdatedProducts < 1)
+                throw new SQLException();
 
             ContentValues inventoryItemValues = new ContentValues();
             inventoryItemValues.put(TableData.TableInventoryItem.CATEGORY_ID, updatedItem.getCategory().getId());
             inventoryItemValues.put(TableData.TableInventoryItem.INVENTORY_QUANTITY, updatedItem.getQuantity());
 
-            long updatedInventoryItemId = database.update(TableData.TableInventoryItem.TABLE_NAME, inventoryItemValues, null, null);
+            long numberOfUpdatedItems = database.update(TableData.TableInventoryItem.TABLE_NAME, inventoryItemValues, TableData.TableInventoryItem._ID + " = ?",
+                    new String[] { String.valueOf(updatedItem.getId())});
+
+            if(numberOfUpdatedItems < 1)
+                throw new SQLException();
 
             String query = "SELECT InventoryItem._id, InventoryItem.product_id, Product.product_name, " +
                     "Product.unit_price, InventoryItem.category_id, Category.name, InventoryItem.inventory_quantity, InventoryItem.added_date " +
                     "FROM InventoryItem INNER JOIN Product ON InventoryItem.product_id=Product._id " +
                     "INNER JOIN Category ON InventoryItem.category_id=Category._id " +
-                    "WHERE InventoryItem._id = "+updatedInventoryItemId + ";";
+                    "WHERE InventoryItem._id = "+updatedItem.getId() + ";";
             Cursor cursor = database.rawQuery(query, null);
             cursor.moveToFirst();
-            InventoryItem newInventory = cursorToInventoryItemWithProductAndCategory(cursor);
+            newInventory = cursorToInventoryItemWithProductAndCategory(cursor);
             cursor.close();
-            Log.d(TAG, "updated successfully");
             database.setTransactionSuccessful();
             return newInventory;
         } catch(Exception e) {

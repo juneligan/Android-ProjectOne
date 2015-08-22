@@ -22,6 +22,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.viewpagerindicator:parent:2.4.1'
+    compile 'com.beardedhen:androidbootstrap:+'
+
 //    compile 'org.roboguice:roboguice:3.+'
 //    provided 'org.roboguice:roboblender:3.+'
 }

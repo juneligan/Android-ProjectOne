@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -16,6 +17,14 @@
             android:text="@string/product_name"/>
 
         <TextView
+            android:id="@+id/product_unit_price"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.09"
+            android:gravity="center"
+            android:text="@string/product_unit_price"/>
+
+        <TextView
             android:id="@+id/product_quantity"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -23,18 +32,20 @@
             android:gravity="center"
             android:text="@string/product_inventory_quantity"/>
 
-        <EditText android:id="@+id/new_quantity"
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/new_unit_price"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.09"
+            android:layout_weight="0.11"
             android:gravity="center"
-            android:hint="@string/product_inventory_quantity"/>
+            android:hint="@string/product_unit_price" />
 
-        <Button
+        <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/btn_update"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/update"/>
+            bootstrap:bb_icon_right="fa-plus"
+            bootstrap:bb_type="success"/>
 
 
     </LinearLayout>

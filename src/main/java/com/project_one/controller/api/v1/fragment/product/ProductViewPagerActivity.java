@@ -1,10 +1,9 @@
-package com.project_one.controller;
+package com.project_one.controller.api.v1.fragment.product;
 
-import android.app.ListActivity;
 import android.content.Context;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -12,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.R;
-import com.project_one.controller.api.v1.fragment.product.CustomAdapterHolder;
 import com.project_one.model.Category;
 import com.project_one.model.InventoryItem;
 import com.project_one.model.Product;
@@ -26,51 +24,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductActivity extends ListActivity {
+public class ProductViewPagerActivity extends ActionBarActivity {
 
+    ViewPager pager;
+    ProductViewPagerAdapter adapter;
     private Context context = this;
-    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product);
-        displayCategories();
+        setContentView(R.layout.activity_product_view_pager);
+
+        pager = (ViewPager) findViewById(R.id.pager);
+        adapter = new ProductViewPagerAdapter(getSupportFragmentManager());
+        pager.setAdapter(adapter);
+
     }
-
-    private void displayCategories() {
-        List<String> typeOfCategories = fetchTypeOfCategory();
-        spinner = (Spinner)findViewById(R.id.list_of_categories);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeOfCategories);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
-    }
-
-
-    private List<String> fetchTypeOfCategory() {
-        CategoryService categoryServiceImpl = new CategoryServiceImpl(context);
-        List<String> categories = new ArrayList<String>();
-        for(Category category: categoryServiceImpl.fetchAllCategories()) {
-            categories.add(category.getName());
-        }
-        return categories;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     public void create(View view) throws SQLException {
 
@@ -111,6 +80,7 @@ public class ProductActivity extends ListActivity {
 
             inventoryItemServiceImpl.create(inventoryItem);
             Toast.makeText(context, "New item added successfully", Toast.LENGTH_LONG).show();
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -133,4 +103,5 @@ public class ProductActivity extends ListActivity {
         }
         return null;
     }
+
 }

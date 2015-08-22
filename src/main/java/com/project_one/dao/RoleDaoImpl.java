@@ -32,10 +32,8 @@ public class RoleDaoImpl implements RoleDao {
 
     public RoleDaoImpl(Context context) throws SQLException {
         this.context = context;
-        dbHelper = new DatabaseHelper(context);
-        Log.d(TAG, "create role DB:"+context);
+        dbHelper = DatabaseHelper.getInstance(context);
         open();
-        Log.d(TAG, "open Database:" + context);
     }
 
     private void open() {

@@ -8,6 +8,7 @@ import com.project_one.model.Category;
 import com.project_one.model.InventoryItem;
 import com.project_one.model.Product;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -60,6 +61,14 @@ public class InventoryItemServiceImpl implements InventoryItemService {
 
         int quantity = inventoryItem.getQuantity() + quantityToBeAdded;
         inventoryItem.setQuantity(quantity);
+        return update(inventoryItem);
+    }
+
+    @Override
+    public InventoryItem updateUnitPrice(Product product, BigDecimal newUnitPrice) {
+        InventoryItem inventoryItem = fetchInventoryItemById(product.getId());
+
+        inventoryItem.getProduct().setUnitPrice(newUnitPrice);
         return update(inventoryItem);
     }
 

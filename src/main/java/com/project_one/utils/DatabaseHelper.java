@@ -104,7 +104,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_INVENTORY_ITEM_TABLE =
             "DROP TABLE IF EXISTS " + TableData.TableInventoryItem.TABLE_NAME;
 
-    public DatabaseHelper(Context context) {
+    private static DatabaseHelper instance;
+
+    public static synchronized DatabaseHelper getInstance(Context context) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (instance == null) {
+            instance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return instance;
+    }
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.d("Database Helper", "Create DATABASE " + DATABASE_NAME);
     }

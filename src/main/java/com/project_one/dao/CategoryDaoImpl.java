@@ -31,7 +31,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
     public CategoryDaoImpl(Context context) {
         this.context = context;
-        dbHelper = new DatabaseHelper(context);
+        dbHelper = DatabaseHelper.getInstance(context);
         open();
     }
 

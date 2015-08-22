@@ -4,6 +4,7 @@ import com.project_one.model.Category;
 import com.project_one.model.InventoryItem;
 import com.project_one.model.Product;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface InventoryItemService {
     public List<InventoryItem> fetchAllItems();
 
     public InventoryItem addQuantity(Product product, int newQuantity);
+
+    public InventoryItem updateUnitPrice(Product product, BigDecimal newUnitPrice);
 }
