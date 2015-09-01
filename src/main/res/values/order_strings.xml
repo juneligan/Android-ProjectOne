@@ -1,0 +1,9 @@
+<resources>
+    <string name="order">Order</string>
+    <string name="order_name">Order Name</string>
+    <string name="order_customer_name">Customer Name</string>
+    <string name="order_total_amount">Amount</string>
+    <string name="order_date_created">Date Created</string>
+    <string name="title_activity_order">Order Activity</string>
+    <string name="order_activity">Manage Order</string>
+</resources>

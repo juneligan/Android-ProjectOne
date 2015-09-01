@@ -33,13 +33,13 @@ public class TableData {
         public static final String PRODUCT_ID = "product_id";
         public static final String UNIT_PRICE = "unit_price";
         public static final String QUANTITY = "quantity";
+        public static final String ORDER_ID = "order_id";
         public static final String ADDED_DATE = "added_date";
     }
 
     public static abstract class TableSalesOrder implements BaseColumns {
         public static final String TABLE_NAME = "SalesOrder";
         public static final String USER_ID = "user_id";
-        public static final String ORDER_DETAIL_ID = "order_detail_id";
         public static final String AMOUNT = "amount";
         public static final String CREATED_DATE = "created_date";
     }

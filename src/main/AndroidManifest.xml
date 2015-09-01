@@ -64,6 +64,10 @@
             android:name=".project_one.controller.api.v1.fragment.product.ProductViewPagerActivity"
             android:label="@string/title_activity_product_view_pager" >
         </activity>
+        <activity
+            android:name=".project_one.controller.api.v1.fragment.order.OrderViewPagerActivity"
+            android:label="@string/title_activity_order_view_pager" >
+        </activity>
     </application>
 
 </manifest>

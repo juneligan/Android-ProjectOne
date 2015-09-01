@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.R;
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.project_one.controller.api.v1.fragment.CustomArrayAdapter;
 import com.project_one.model.InventoryItem;
 import com.project_one.model.Product;
 import com.project_one.service.InventoryItemService;
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * Created by JenuNagil on 8/22/2015.
  */
-public class InventoryItemUnitPriceArrayAdapter extends ArrayAdapter<InventoryItem> implements InventoryItemArrayAdapter {
+public class InventoryItemUnitPriceArrayAdapter extends ArrayAdapter<InventoryItem> implements CustomArrayAdapter {
 
     public static final int ADDED_TO_POSITION_OF_LIST_ITEM_TO_BE_REMOVED = 1;
     public static final String THRESHOLD_FOR_UNIT_PRICE = "5.00";

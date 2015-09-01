@@ -13,6 +13,7 @@ import com.R;
 import com.project_one.model.Category;
 import com.project_one.service.CategoryService;
 import com.project_one.service.CategoryServiceImpl;
+import com.viewpagerindicator.TitlePageIndicator;
 
 import java.util.ArrayList;
 import java.util.List;

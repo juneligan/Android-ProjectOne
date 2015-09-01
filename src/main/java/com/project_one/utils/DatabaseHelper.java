@@ -47,13 +47,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ORDER_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TableData.TableSalesOrder.TABLE_NAME + " ( " +
                     TableData.TableSalesOrder._ID + " INTEGER PRIMARY KEY," +
-                    TableData.TableSalesOrder.ORDER_DETAIL_ID + INTEGER_TYPE + COMMA_SEP +
                     TableData.TableSalesOrder.USER_ID + INTEGER_TYPE + COMMA_SEP +
                     TableData.TableSalesOrder.AMOUNT + TEXT_TYPE + COMMA_SEP +
                     TableData.TableSalesOrder.CREATED_DATE + TIMESTAMP + COMMA_SEP +
-                    FOREIGN_KEY + OPEN_PAREN + TableData.TableSalesOrder.ORDER_DETAIL_ID + CLOSE_PAREN +
-                    REFERENCES + TableData.TableOrderDetail.TABLE_NAME + OPEN_PAREN +
-                    TableData.TableOrderDetail._ID + CLOSE_PAREN + COMMA_SEP +
                     FOREIGN_KEY + OPEN_PAREN + TableData.TableSalesOrder.USER_ID + CLOSE_PAREN +
                     REFERENCES + TableData.TableUser.TABLE_NAME + OPEN_PAREN +
                     TableData.TableUser._ID + CLOSE_PAREN + " );";
@@ -64,7 +60,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     TableData.TableOrderDetail.PRODUCT_ID + INTEGER_TYPE + COMMA_SEP +
                     TableData.TableOrderDetail.UNIT_PRICE + TEXT_TYPE + COMMA_SEP +
                     TableData.TableOrderDetail.QUANTITY + INTEGER_TYPE + COMMA_SEP +
+                    TableData.TableOrderDetail.ORDER_ID + INTEGER_TYPE + COMMA_SEP +
                     TableData.TableOrderDetail.ADDED_DATE + TIMESTAMP + COMMA_SEP +
+                    FOREIGN_KEY + OPEN_PAREN + TableData.TableOrderDetail.ORDER_ID + CLOSE_PAREN +
+                    REFERENCES + TableData.TableSalesOrder.TABLE_NAME + OPEN_PAREN +
+                    TableData.TableSalesOrder._ID + CLOSE_PAREN + COMMA_SEP +
                     FOREIGN_KEY + OPEN_PAREN + TableData.TableOrderDetail.PRODUCT_ID + CLOSE_PAREN +
                     REFERENCES + TableData.TableProduct.TABLE_NAME + OPEN_PAREN +
                     TableData.TableProduct._ID + CLOSE_PAREN + " );";

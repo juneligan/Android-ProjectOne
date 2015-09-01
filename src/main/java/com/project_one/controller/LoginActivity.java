@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.R;
+import com.project_one.controller.api.v1.fragment.order.OrderViewPagerActivity;
 import com.project_one.controller.api.v1.fragment.product.ProductViewPagerActivity;
 import com.project_one.model.User;
 import com.project_one.service.UserService;
@@ -81,6 +82,11 @@ public class LoginActivity extends Activity {
 
     public void productActivity(View view) {
         Intent intent = new Intent(this, ProductViewPagerActivity.class);
+        startActivity(intent);
+    }
+
+    public void orderActivity(View view) {
+        Intent intent = new Intent(this, OrderViewPagerActivity.class);
         startActivity(intent);
     }
 }

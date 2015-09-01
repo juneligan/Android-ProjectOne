@@ -45,5 +45,11 @@
         android:text="@string/product_activity"
         android:onClick="productActivity"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/order_activity"
+        android:onClick="orderActivity"/>
+
 </LinearLayout>
 

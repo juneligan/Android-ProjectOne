@@ -1,6 +1,7 @@
 package com.project_one.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,8 +10,8 @@ import java.util.List;
 public class SalesOrder {
     private Long id;
     private User user;
-    private List<OrderDetail> orderDetails;
     private BigDecimal amount;
+    private Date dateCreated;
 
     public void setId(Long id) {
         this.id = id;
@@ -28,19 +29,19 @@ public class SalesOrder {
         return amount;
     }
 
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
     public void setUser(User user) {
         this.user = user;
     }
 
     public User getUser() {
         return user;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
     }
 }

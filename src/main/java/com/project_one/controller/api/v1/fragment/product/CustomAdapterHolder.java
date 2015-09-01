@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.R;
 import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.project_one.controller.api.v1.fragment.product.array_adapter.InventoryItemArrayAdapter;
+import com.project_one.controller.api.v1.fragment.CustomArrayAdapter;
 import com.project_one.model.InventoryItem;
 import com.project_one.model.Product;
 import com.project_one.service.InventoryItemService;
@@ -28,14 +28,14 @@ public class CustomAdapterHolder {
 
     private CustomInventoryArrayAdapter customInventoryArrayAdapter;
     private Activity activity;
-    private InventoryItemArrayAdapter inventoryItemArrayAdapter;
+    private CustomArrayAdapter customArrayAdapter;
 
     public CustomAdapterHolder(Context context, int textViewResourceId, List<InventoryItem> objects) {
         customInventoryArrayAdapter = new CustomInventoryArrayAdapter(context, textViewResourceId, objects);
     }
 
-    public CustomAdapterHolder(InventoryItemArrayAdapter inventoryItemArrayAdapter) {
-        this.inventoryItemArrayAdapter = inventoryItemArrayAdapter;
+    public CustomAdapterHolder(CustomArrayAdapter customArrayAdapter) {
+        this.customArrayAdapter = customArrayAdapter;
     }
 
     public void setActivity(Activity activity) {
@@ -46,8 +46,8 @@ public class CustomAdapterHolder {
         return customInventoryArrayAdapter;
     }
 
-    public InventoryItemArrayAdapter getInventoryItemArrayAdapter() {
-        return inventoryItemArrayAdapter;
+    public CustomArrayAdapter getCustomArrayAdapter() {
+        return customArrayAdapter;
     }
 
     public class CustomInventoryArrayAdapter extends ArrayAdapter<InventoryItem> {

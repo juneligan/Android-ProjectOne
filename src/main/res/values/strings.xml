@@ -10,4 +10,5 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_product_view_pager">ProductViewPagerActivity</string>
+    <string name="title_activity_order_view_pager">OrderViewPagerActivity</string>
 </resources>

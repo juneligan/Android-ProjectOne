@@ -18,6 +18,7 @@ import com.project_one.service.CategoryService;
 import com.project_one.service.CategoryServiceImpl;
 import com.project_one.service.InventoryItemService;
 import com.project_one.service.InventoryItemServiceImpl;
+import com.viewpagerindicator.TitlePageIndicator;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -80,6 +81,9 @@ public class ProductViewPagerActivity extends ActionBarActivity {
 
             inventoryItemServiceImpl.create(inventoryItem);
             Toast.makeText(context, "New item added successfully", Toast.LENGTH_LONG).show();
+            unitPriceText.setText("");
+            inventoryQuantityText.setText("");
+            productNameText.setText("");
             adapter.notifyDataSetChanged();
         }
     }
@@ -96,7 +100,8 @@ public class ProductViewPagerActivity extends ActionBarActivity {
 
     private BigDecimal convertStringPriceToBigDecimal(String value) {
         try {
-            return value.equals("Price") || value.equals("") ? new BigDecimal("0.00") : new BigDecimal(value);
+            BigDecimal defaultUnitPrice = new BigDecimal("0.00");
+            return value.equals("Price") || value.equals("") ? defaultUnitPrice : (new BigDecimal(value)).add(defaultUnitPrice);
         } catch(NumberFormatException e) {
             Toast.makeText(context, "Price is invalid", Toast.LENGTH_LONG).show();
 //            throw new NumberFormatException();
