@@ -22,12 +22,12 @@ public class InventoryItemServiceImpl implements InventoryItemService {
 
     public InventoryItemServiceImpl(Context context) throws SQLException {
         this.context = context;
-        inventoryItemDaoimpl = new InventoryItemDaoImpl(context);
+        inventoryItemDaoimpl = new InventoryItemDaoImpl();
     }
 
     @Override
     public InventoryItem create(InventoryItem item) throws SQLException {
-        return inventoryItemDaoimpl.create(item);
+        return inventoryItemDaoimpl.createOrUpdate(item);
     }
 
     @Override
@@ -59,8 +59,8 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     public InventoryItem addQuantity(Product product, int quantityToBeAdded) {
         InventoryItem inventoryItem = fetchInventoryItemById(product.getId());
 
-        int quantity = inventoryItem.getQuantity() + quantityToBeAdded;
-        inventoryItem.setQuantity(quantity);
+        int quantity = inventoryItem.quantity + quantityToBeAdded;
+        inventoryItem.quantity = quantity;
         return update(inventoryItem);
     }
 
@@ -68,13 +68,13 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     public InventoryItem updateUnitPrice(Product product, BigDecimal newUnitPrice) {
         InventoryItem inventoryItem = fetchInventoryItemById(product.getId());
 
-        inventoryItem.getProduct().setUnitPrice(newUnitPrice);
+        inventoryItem.product.unitPrice = newUnitPrice;
         return update(inventoryItem);
     }
 
     public InventoryItem update(InventoryItem updatedItem) {
         try {
-            return inventoryItemDaoimpl.update(updatedItem);
+            return inventoryItemDaoimpl.createOrUpdate(updatedItem);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

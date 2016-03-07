@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.activeandroid.query.Select;
+import com.project_one.common.type.RoleType;
 import com.project_one.contract.TableData;
 import com.project_one.model.Role;
 import com.project_one.model.User;
@@ -23,70 +25,21 @@ public class RoleDaoImpl implements RoleDao {
     public static final String TAG = "RoleDao";
 
     private SQLiteDatabase database;
-    private DatabaseHelper dbHelper;
-    private Context context;
-    private String[] allColumns = {
-            TableData.TableRole._ID,
-            TableData.TableRole.TYPE
-    };
+    public RoleDaoImpl() {}
 
-    public RoleDaoImpl(Context context) throws SQLException {
-        this.context = context;
-        dbHelper = DatabaseHelper.getInstance(context);
-        open();
-    }
-
-    private void open() {
-        database = dbHelper.getWritableDatabase();
-    }
-
-    private void close() {
-        dbHelper.close();
-    }
-
-    public Role createRole(String type) {
-        ContentValues values = new ContentValues();
-        values.put(TableData.TableRole.TYPE, type);
-        long insertId = database.insert(TableData.TableRole.TABLE_NAME, null, values);
-        Log.d(TAG, "Insert role type " + type);
-        Cursor cursor = database.query(TableData.TableRole.TABLE_NAME, allColumns,
-                TableData.TableRole._ID + " = " + insertId, null, null, null, null);
-        cursor.moveToFirst();
-        Role newRole = cursorToRole(cursor);
-        cursor.close();
-        return newRole;
+    @Override
+    public Role createRole(RoleType type) {
+        Role role = new Role(type);
+        //TODO create abstracted validation
+        role.save();
+        return role;
     }
 
     public List<Role> fetchAllRoles() {
-        List<Role> listOfRoles = new ArrayList<Role>();
-        Cursor cursor = database.query(TableData.TableRole.TABLE_NAME, allColumns,
-                null, null, null, null, null);
-
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast()) {
-            Role role = cursorToRole(cursor);
-            listOfRoles.add(role);
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return listOfRoles;
+        return new Select().from(Role.class).execute();
     }
 
-    public Role fetchRoleByType(String type) {
-        Cursor cursor = database.query(TableData.TableRole.TABLE_NAME, allColumns,
-                TableData.TableRole.TYPE + " = ?",
-                new String[] { String.valueOf(type)}, null, null, null, null);
-
-        cursor.moveToFirst();
-        return cursorToRole(cursor);
-    }
-
-    private Role cursorToRole(Cursor cursor) {
-        if(cursor.getCount() == 0) return null;
-        Role role = new Role();
-        role.setId(cursor.getLong(0));
-        role.setType(cursor.getString(1));
-        return role;
+    public Role fetchRoleByType(RoleType type) {
+        return new Select().from(Role.class).where("type = ?", type).executeSingle();
     }
 }

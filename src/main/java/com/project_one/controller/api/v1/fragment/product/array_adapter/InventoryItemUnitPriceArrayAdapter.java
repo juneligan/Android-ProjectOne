@@ -56,7 +56,7 @@ public class InventoryItemUnitPriceArrayAdapter extends ArrayAdapter<InventoryIt
         final EditText newUnitPrice = (EditText) view.findViewById(R.id.new_unit_price);
         BootstrapButton updateButton = (BootstrapButton) view.findViewById(R.id.btn_update);
 
-        String quantityString = Integer.toString(listOfItems.get(position).getQuantity());
+        String quantityString = Integer.toString(listOfItems.get(position).quantity);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,8 +64,8 @@ public class InventoryItemUnitPriceArrayAdapter extends ArrayAdapter<InventoryIt
                     BigDecimal newUnitPriceToUpdate = convertStringPriceToBigDecimal(newUnitPrice.getText().toString());
                     if (newUnitPriceToUpdate == null) return;
 
-                    BigDecimal unitPricePlusMaxThreshold = listOfItems.get(position).getProduct().getUnitPrice().add(new BigDecimal(THRESHOLD_FOR_UNIT_PRICE));
-                    BigDecimal unitPriceMinusMinThreshold = listOfItems.get(position).getProduct().getUnitPrice().subtract(new BigDecimal(THRESHOLD_FOR_UNIT_PRICE));
+                    BigDecimal unitPricePlusMaxThreshold = listOfItems.get(position).product.unitPrice.add(new BigDecimal(THRESHOLD_FOR_UNIT_PRICE));
+                    BigDecimal unitPriceMinusMinThreshold = listOfItems.get(position).product.unitPrice.subtract(new BigDecimal(THRESHOLD_FOR_UNIT_PRICE));
                     if (newUnitPriceToUpdate.compareTo(unitPricePlusMaxThreshold) > 0) {
                         Toast.makeText(context, "Too High for new increased price", Toast.LENGTH_LONG).show();
                         return;
@@ -75,7 +75,7 @@ public class InventoryItemUnitPriceArrayAdapter extends ArrayAdapter<InventoryIt
                     }
 
                     InventoryItemService inventoryItemServiceImpl = new InventoryItemServiceImpl(context);
-                    Product product = listOfItems.get(position).getProduct();
+                    Product product = listOfItems.get(position).product;
                     InventoryItem inventoryItem = inventoryItemServiceImpl.updateUnitPrice(product,newUnitPriceToUpdate);
                     listOfItems.add(position, inventoryItem);
                     listOfItems.remove(position + ADDED_TO_POSITION_OF_LIST_ITEM_TO_BE_REMOVED);
@@ -88,9 +88,9 @@ public class InventoryItemUnitPriceArrayAdapter extends ArrayAdapter<InventoryIt
         });
 
 
-        productName.setText(listOfItems.get(position).getProduct().getName());
+        productName.setText(listOfItems.get(position).product.name);
         inventoryQuantity.setText(quantityString);
-        unitPriceTextView.setText(listOfItems.get(position).getProduct().getUnitPrice().toString());
+        unitPriceTextView.setText(listOfItems.get(position).product.unitPrice.toString());
         return view;
     }
 

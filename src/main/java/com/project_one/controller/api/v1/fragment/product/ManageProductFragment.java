@@ -62,10 +62,10 @@ public class ManageProductFragment extends Fragment {
     }
 
     private List<String> fetchTypeOfCategory() {
-        CategoryService categoryServiceImpl = new CategoryServiceImpl(getActivity());
+        CategoryService categoryServiceImpl = new CategoryServiceImpl();
         List<String> categories = new ArrayList<String>();
         for(Category category: categoryServiceImpl.fetchAllCategories()) {
-            categories.add(category.getName());
+            categories.add(category.name);
         }
         return categories;
     }

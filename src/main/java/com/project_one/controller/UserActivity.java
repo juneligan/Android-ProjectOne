@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.R;
+import com.project_one.common.type.RoleType;
 import com.project_one.model.Role;
 import com.project_one.model.User;
 import com.project_one.service.RoleService;
@@ -47,10 +48,10 @@ public class UserActivity extends Activity {
     }
 
     private List<String> fetchTypeOfRoles() {
-        RoleService roleService = new RoleServiceImpl(context);
+        RoleService roleService = new RoleServiceImpl();
         List<String> typeOfRoles = new ArrayList<String>();
         for(Role role : roleService.fetchAllRoles()) {
-            typeOfRoles.add(role.getType());
+            typeOfRoles.add(role.type.toString());
         }
         return typeOfRoles;
     }
@@ -79,28 +80,28 @@ public class UserActivity extends Activity {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         String selectedRole = selectedRoleSpinner.getSelectedItem().toString();
+        RoleType selectedRoleType = RoleType.valueOf(selectedRole);
         String confirmPassword = confirmPasswordEditText.getText().toString();
-        UserService userServiceImpl = new UserServiceImpl(context);
+        UserService userServiceImpl = new UserServiceImpl();
 
-        RoleService roleService = new RoleServiceImpl(context);
-        Role role = roleService.fetchRoleByType(selectedRole);
+        RoleService roleService = new RoleServiceImpl();
+        Role role = roleService.fetchRoleByType(selectedRoleType);
         if(!password.equals(confirmPassword)) {
             Toast.makeText(context, "Password does not matched", Toast.LENGTH_LONG).show();
-        } else if(selectedRole == null && role == null) {
+        } else if(selectedRoleType == null && role == null) {
             Toast.makeText(context, "Role is not valid", Toast.LENGTH_LONG).show();
         } else {
-            userServiceImpl.createUser(role.getId(), username, password);
+            userServiceImpl.createUser(role, username, password);
             Toast.makeText(context, "New user added successfully", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void fetchAllUsers(View view) {
-        UserService userServiceImpl = new UserServiceImpl(context);
-        List<User> users = new ArrayList<User>();
-        users = userServiceImpl.fetchAllUsers();
+    public void fetchAllCustomers(View view) {
+        UserService userServiceImpl = new UserServiceImpl();
+        List<User> users = userServiceImpl.fetchAllCustomer();
         for(User user : users) {
-            Log.d("User Controller", user.getUsername());
-            Log.d("User Controller", user.getRole().getType());
+            Log.d("User Controller", user.username);
+            Log.d("User Controller", user.role.type.toString());
         }
     }
 }

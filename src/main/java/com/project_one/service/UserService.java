@@ -2,6 +2,7 @@ package com.project_one.service;
 
 import android.content.Context;
 
+import com.project_one.model.Role;
 import com.project_one.model.User;
 
 import java.util.List;
@@ -11,11 +12,9 @@ import java.util.List;
  */
 public interface UserService {
 
-    public void setContext(Context context);
+    public User createUser(Role role, String username, String password);
 
-    public User createUser(Long roleId, String username, String password);
-
-    public List<User> fetchAllUsers();
+    public List<User> fetchAllCustomer();
 
     public boolean authenticateUser(User user);
 }

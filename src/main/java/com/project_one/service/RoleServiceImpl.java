@@ -2,6 +2,7 @@ package com.project_one.service;
 
 import android.content.Context;
 
+import com.project_one.common.type.RoleType;
 import com.project_one.dao.RoleDao;
 import com.project_one.dao.RoleDaoImpl;
 import com.project_one.model.Role;
@@ -17,16 +18,12 @@ public class RoleServiceImpl implements RoleService {
     private RoleDao roleDaoImpl;
     private Context context;
 
-    public RoleServiceImpl(Context context) {
-        try {
-            roleDaoImpl = new RoleDaoImpl(context);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public RoleServiceImpl() {
+        roleDaoImpl = new RoleDaoImpl();
     }
 
-    public Role createRole(String type) {
-
+    @Override
+    public Role createRole(RoleType type) {
         return roleDaoImpl.createRole(type);
     }
 
@@ -34,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
         return roleDaoImpl.fetchAllRoles();
     }
 
-    public Role fetchRoleByType(String roleType) {
+    public Role fetchRoleByType(RoleType roleType) {
         return roleDaoImpl.fetchRoleByType(roleType);
     }
 }

@@ -1,5 +1,6 @@
 package com.project_one.dao;
 
+import com.project_one.model.Role;
 import com.project_one.model.User;
 
 import java.util.List;
@@ -8,9 +9,9 @@ import java.util.List;
  * Created by JenuNagil on 7/28/2015.
  */
 public interface UserDao {
-    public User createUser(Long roleId, String username, String password);
+    public User createUser(Role role, String username, String password);
 
-    public List<User> fetchAllUsers();
+    public List<User> fetchAllUsersByRole(Role role);
 
     public boolean authenticateUser(User user);
 }

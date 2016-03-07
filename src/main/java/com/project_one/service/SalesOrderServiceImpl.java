@@ -15,8 +15,8 @@ import java.util.List;
 public class SalesOrderServiceImpl implements SalesOrderService {
     private SalesOrderDao salesOrderDaoImpl;
 
-    public SalesOrderServiceImpl(Context context) {
-        salesOrderDaoImpl = new SalesOrderDaoImpl(context);
+    public SalesOrderServiceImpl() {
+        salesOrderDaoImpl = new SalesOrderDaoImpl();
     }
 
     @Override

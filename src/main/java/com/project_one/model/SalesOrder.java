@@ -1,5 +1,8 @@
 package com.project_one.model;
 
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -7,41 +10,26 @@ import java.util.List;
 /**
  * Created by JenuNagil on 7/30/2015.
  */
-public class SalesOrder {
-    private Long id;
-    private User user;
-    private BigDecimal amount;
-    private Date dateCreated;
+@Table(name = "Sales_Order")
+public class SalesOrder extends AbstractDomain {
 
-    public void setId(Long id) {
-        this.id = id;
+    @Column(name = "user", index = true)
+    public User buyer;
+    @Column(name = "total_amount", index = true)
+    public BigDecimal totalAmount;
+    @Column(name = "date_created", index = true)
+    public Date dateCreated;
+
+    public SalesOrder() {
+        super();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setDateCreated(Date dateCreated) {
+    public SalesOrder(User buyer, BigDecimal totalAmount, Date dateCreated) {
+        this.buyer = buyer;
+        this.totalAmount = totalAmount;
         this.dateCreated = dateCreated;
     }
-
-    public Date getDateCreated() {
-        return dateCreated;
+    public List<OrderDetail> orders() {
+        return getMany(OrderDetail.class, "Order");
     }
 }

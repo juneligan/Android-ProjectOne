@@ -1,25 +1,24 @@
 package com.project_one.model;
 
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.project_one.common.type.RoleType;
+
 /**
  * Created by JenuNagil on 7/30/2015.
  */
-public class Role {
-    private Long id;
-    private String type;
+@Table(name = "Role")
+public class Role extends AbstractDomain {
+    @Column(name = "type", index = true)
+    public RoleType type;
 
-    public void setId(Long id) {
-        this.id = id;
+    public Role() {
+        super();
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setType(String type) {
+    public Role(RoleType type){
         this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
 }

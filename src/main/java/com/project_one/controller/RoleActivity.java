@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.R;
+import com.project_one.common.type.RoleType;
 import com.project_one.service.RoleService;
 import com.project_one.service.RoleServiceImpl;
 
@@ -43,11 +44,14 @@ public class RoleActivity extends Activity {
     public void create(View view) throws SQLException {
         EditText roleTypeEditText = (EditText) findViewById(R.id.type);
         String roleType = roleTypeEditText.getText().toString();
-        RoleService roleServiceImpl = new RoleServiceImpl(context);
-        if(roleServiceImpl.fetchRoleByType(roleType) != null) {
+        System.out.println(RoleType.valueOf("CUSTOMER"));
+        //TODO try catch error for validating roleType
+        RoleType roleTypeEnum = RoleType.valueOf(roleType.toUpperCase());
+        RoleService roleServiceImpl = new RoleServiceImpl();
+        if(roleServiceImpl.fetchRoleByType(roleTypeEnum) != null) {
             Toast.makeText(context, "Role already exists.", Toast.LENGTH_LONG).show();
         } else {
-            roleServiceImpl.createRole(roleType);
+            roleServiceImpl.createRole(roleTypeEnum);
             Toast.makeText(context, "Added new role successfully.", Toast.LENGTH_LONG).show();
         }
     }

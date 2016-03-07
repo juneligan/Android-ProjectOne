@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.activeandroid.query.Select;
 import com.project_one.contract.TableData;
 import com.project_one.model.Category;
 import com.project_one.utils.DatabaseHelper;
@@ -19,75 +20,23 @@ import java.util.List;
  */
 public class CategoryDaoImpl implements CategoryDao {
 
-    public static final String TAG = "CategoryDao";
-
-    private SQLiteDatabase database;
-    private DatabaseHelper dbHelper;
-    private Context context;
-    private String[] allColumns = {
-            TableData.TableCategory._ID,
-            TableData.TableCategory.NAME
-    };
-
-    public CategoryDaoImpl(Context context) {
-        this.context = context;
-        dbHelper = DatabaseHelper.getInstance(context);
-        open();
-    }
-
-    private void open() {
-        database = dbHelper.getWritableDatabase();
-    }
-
-    private void close() {
-        dbHelper.close();
+    public CategoryDaoImpl() {
     }
 
     @Override
     public Category fetchCategoryByName(String name) {
-        Cursor cursor = database.query(TableData.TableCategory.TABLE_NAME, allColumns,
-                TableData.TableCategory.NAME + " = ?",
-                new String[] { String.valueOf(name)}, null, null, null, null);
-
-        cursor.moveToFirst();
-        return cursor.getCount() > 0 ? cursorToCategory(cursor) : null;
-    }
-
-    private Category cursorToCategory(Cursor cursor) {
-        Category category = new Category();
-        category.setId(cursor.getLong(0));
-        category.setName(cursor.getString(1));
-        return category;
+        return new Select().from(Category.class).where("name = ?", name).executeSingle();
     }
 
     @Override
     public Category create(String name) {
-        ContentValues values = new ContentValues();
-        values.put(TableData.TableCategory.NAME, name);
-        long insertId = database.insert(TableData.TableCategory.TABLE_NAME, null, values);
-        Log.d(TAG, "Insert category name " + name);
-        Cursor cursor = database.query(TableData.TableCategory.TABLE_NAME, allColumns,
-                TableData.TableCategory._ID + " = " + insertId, null, null, null, null);
-        cursor.moveToFirst();
-        Category newCategory = cursorToCategory(cursor);
-        cursor.close();
+        Category newCategory = new Category(name);
+        newCategory.save();
         return newCategory;
     }
 
     @Override
     public List<Category> fetchAllCategories() {
-        List<Category> categories = new ArrayList<Category>();
-        Cursor cursor = database.query(TableData.TableCategory.TABLE_NAME, allColumns,
-                null, null, null, null, null);
-
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast()) {
-            Category category = cursorToCategory(cursor);
-            categories.add(category);
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-        return categories;
+        return new Select().from(Category.class).execute();
     }
 }

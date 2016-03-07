@@ -1,36 +1,28 @@
 package com.project_one.model;
 
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import java.math.BigDecimal;
 
 /**
  * Created by JenuNagil on 7/30/2015.
  */
-public class Product {
-    private Long id;
-    private String name;
-    private BigDecimal unitPrice;
+@Table(name="Product")
+public class Product extends AbstractDomain {
 
-    public void setId(Long id) {
-        this.id = id;
+    @Column(name = "name", index = true)
+    public String name;
+    @Column(name = "unit_price", index = true)
+    public BigDecimal unitPrice;
+
+    public Product() {
+        super();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setName(String name) {
+    public Product(String name, BigDecimal unitPrice) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
-    }
 }

@@ -57,7 +57,7 @@ public class InventoryItemQuantityArrayAdapter extends ArrayAdapter<InventoryIte
         final EditText newQuantity = (EditText) view.findViewById(R.id.new_quantity);
         BootstrapButton updateButton = (BootstrapButton) view.findViewById(R.id.btn_update);
 
-        String quantityString = Integer.toString(listOfItems.get(position).getQuantity());
+        String quantityString = Integer.toString(listOfItems.get(position).quantity);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,13 +65,13 @@ public class InventoryItemQuantityArrayAdapter extends ArrayAdapter<InventoryIte
                     Integer quantityToBeAdded = convertStringQuantityToInt(newQuantity.getText().toString());
                     if(quantityToBeAdded == null) return;
 
-                    if((listOfItems.get(position).getQuantity() + quantityToBeAdded) < VALID_MINIMUM_QUANTITY_VALUE) {
+                    if((listOfItems.get(position).quantity + quantityToBeAdded) < VALID_MINIMUM_QUANTITY_VALUE) {
                         Toast.makeText(context, "Cannot add the specified quantity", Toast.LENGTH_LONG).show();
                         return;
                     }
 
                     InventoryItemService inventoryItemServiceImpl = new InventoryItemServiceImpl(context);
-                    Product product = listOfItems.get(position).getProduct();
+                    Product product = listOfItems.get(position).product;
                     InventoryItem inventoryItem = inventoryItemServiceImpl.addQuantity(product, quantityToBeAdded);
                     listOfItems.add(position, inventoryItem);
                     listOfItems.remove(position + POSTION_OF_LIST_ITEM_TO_BE_ADDED);
@@ -85,10 +85,10 @@ public class InventoryItemQuantityArrayAdapter extends ArrayAdapter<InventoryIte
         });
 
 
-        productName.setText(listOfItems.get(position).getProduct().getName());
-        quantityString = Integer.toString(listOfItems.get(position).getQuantity());
+        productName.setText(listOfItems.get(position).product.name);
+        quantityString = Integer.toString(listOfItems.get(position).quantity);
         inventoryQuantity.setText(quantityString);
-        unitPriceTextView.setText(listOfItems.get(position).getProduct().getUnitPrice().toString());
+        unitPriceTextView.setText(listOfItems.get(position).product.unitPrice.toString());
         return view;
     }
 

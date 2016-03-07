@@ -73,6 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE IF NOT EXISTS " + TableData.TableProduct.TABLE_NAME + " ( " +
                     TableData.TableProduct._ID + " INTEGER PRIMARY KEY," +
                     TableData.TableProduct.PRODUCT_NAME + TEXT_TYPE + COMMA_SEP +
+                    TableData.TableProduct.SELLING_PRICE + TEXT_TYPE + COMMA_SEP +
                     TableData.TableProduct.UNIT_PRICE + TEXT_TYPE + " );";
 
     private static final String SQL_CREATE_INVENTORY_ITEM_TABLE =
@@ -106,6 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static DatabaseHelper instance;
 
+    @Deprecated
     public static synchronized DatabaseHelper getInstance(Context context) {
 
         // Use the application context, which will ensure that you
@@ -121,6 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("Database Helper", "Create DATABASE " + DATABASE_NAME);
     }
 
+    @Deprecated
     public void onCreate(SQLiteDatabase db) {
         Log.d("Database Helper", "Creating Table ");
         db.execSQL(SQL_CREATE_ROLE_TABLE);
@@ -131,6 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PRODUCT_TABLE);
         db.execSQL(SQL_CREATE_INVENTORY_ITEM_TABLE);
     }
+    @Deprecated
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
@@ -144,6 +148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d("Database Helper", "Delete Tables for UPGRADE");
         onCreate(db);
     }
+    @Deprecated
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }

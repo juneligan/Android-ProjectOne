@@ -13,7 +13,7 @@ import com.project_one.controller.api.v1.fragment.product.ManageProductUnitPrice
  */
 public class OrderViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private final static int ORDER_FRAGMENTS_COUNT = 2;
+    private final static int ORDER_FRAGMENTS_COUNT = 4;
     private final static String ORDER_LIST_VIEW = "Order List";
     private final static String CUSTOMER_ORDER_VIEW = "Order Customer View";
     private final static String MANAGE_ORDER_OF_CUSTOMER_VIEW = "Product";
@@ -26,6 +26,7 @@ public class OrderViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch(position) {
             case 0: return OrderListViewPagerFragment.newInstance(position, MANAGE_ORDER_OF_CUSTOMER_VIEW);
+            case 3: return ManageOrderFragment.newInstance(position, "TEST");
             default: return OrderListViewPagerFragment.newInstance(position, MANAGE_ORDER_OF_CUSTOMER_VIEW);
         }
     }

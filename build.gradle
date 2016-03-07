@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'groovyx.grooid.groovy-android'
 
 android {
     compileSdkVersion 22
@@ -6,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.jenunagil.myfirstapp"
-        minSdkVersion 8
+        minSdkVersion 11
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -23,8 +24,25 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
-    compile 'com.beardedhen:androidbootstrap:+'
-
-//    compile 'org.roboguice:roboguice:3.+'
-//    provided 'org.roboguice:roboblender:3.+'
+    compile 'com.beardedhen:androidbootstrap:2.1.0'
+    //    compile 'com.github.satyan:sugar:1.4'
+    compile 'com.android.support:support-v4:23.2'
+    testCompile 'org.robospock:robospock:1.0.0'
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    //    // Required -- JUnit 4 framework
+    //    testCompile 'junit:junit:4.12'
+    //    // Optional -- Mockito framework
+    //    testCompile 'org.mockito:mockito-core:1.10.19'
+    ////    androidTestCompile 'com.android.support:support-annotations:23.0.1'
+    //    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    //    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    //    // Optional -- Hamcrest library
+    //    androidTestCompile 'org.hamcrest:hamcrest-library:1.3'
+    //    // Optional -- UI testing with Espresso
+    //    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    //    // Optional -- UI testing with UI Automator
+    //    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+    //    compile 'org.roboguice:roboguice:3.+'
+    //    provided 'org.roboguice:roboblender:3.+'
+    compile files('libs/roboguice-2.0-javadoc .jar')
 }

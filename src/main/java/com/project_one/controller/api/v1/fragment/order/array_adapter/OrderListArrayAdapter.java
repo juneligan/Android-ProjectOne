@@ -68,9 +68,9 @@ public class OrderListArrayAdapter extends ArrayAdapter<SalesOrder> implements C
 
         SalesOrder order = listOfOrders.get(position);
         orderId.setText(order.getId().toString());
-        usernameText.setText(order.getUser().getUsername());
-        totalAmountText.setText(order.getAmount().toString());
-        dateCreatedText.setText(order.getDateCreated().toString());
+        usernameText.setText(order.buyer.username);
+        totalAmountText.setText(order.totalAmount.toString());
+        dateCreatedText.setText(order.dateCreated.toString());
 
 //
 //        productName.setText(listOfItems.get(position).getProduct().getName());

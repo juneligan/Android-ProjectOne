@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="New Order"
+            bootstrap:bootstrapBrand="success"
+            android:onClick="createSalesOrderDetail"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#ff44d0ff">
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.09"
+            android:gravity="center"
+            android:text="@string/order_customer_name"/>
+
+        <TextView
+            android:id="@+id/product_unit_price"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.09"
+            android:gravity="center"
+            android:text="@string/order_total_amount"
+            android:background="#ff44d0ff"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.09"
+            android:gravity="center"
+            android:text="@string/order_date_created"
+            android:background="#ff44d0ff" />
+
+    </LinearLayout>
+
+</LinearLayout>

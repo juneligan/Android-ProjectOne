@@ -57,7 +57,7 @@ public class ProductViewPagerActivity extends ActionBarActivity {
 
         InventoryItemService inventoryItemServiceImpl = new InventoryItemServiceImpl(context);
 
-        CategoryService categoryService = new CategoryServiceImpl(context);
+        CategoryService categoryService = new CategoryServiceImpl();
         Category category = categoryService.fetchCategoryByName(selectedCategory);
         if(category == null) {
             Toast.makeText(context, "Category is not yet initialize", Toast.LENGTH_LONG).show();
@@ -70,14 +70,9 @@ public class ProductViewPagerActivity extends ActionBarActivity {
         if(existingInventoryItem != null) {
             Toast.makeText(context, "Product already exist in category "+ selectedCategory, Toast.LENGTH_LONG).show();
         } else {
-            Product product = new Product();
-            product.setName(productName);
-            product.setUnitPrice(unitPrice);
+            Product product = new Product(productName, unitPrice);
 
-            InventoryItem inventoryItem = new InventoryItem();
-            inventoryItem.setProduct(product);
-            inventoryItem.setCategory(category);
-            inventoryItem.setQuantity(quantity);
+            InventoryItem inventoryItem = new InventoryItem(product, quantity, category);
 
             inventoryItemServiceImpl.create(inventoryItem);
             Toast.makeText(context, "New item added successfully", Toast.LENGTH_LONG).show();

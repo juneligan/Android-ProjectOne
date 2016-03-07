@@ -3,7 +3,6 @@ package com.project_one.controller;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.R;
-import com.project_one.controller.api.v1.fragment.product.CustomAdapterHolder;
 import com.project_one.model.Category;
 import com.project_one.model.InventoryItem;
 import com.project_one.model.Product;
@@ -48,10 +46,10 @@ public class ProductActivity extends ListActivity {
 
 
     private List<String> fetchTypeOfCategory() {
-        CategoryService categoryServiceImpl = new CategoryServiceImpl(context);
+        CategoryService categoryServiceImpl = new CategoryServiceImpl();
         List<String> categories = new ArrayList<String>();
         for(Category category: categoryServiceImpl.fetchAllCategories()) {
-            categories.add(category.getName());
+            categories.add(category.name);
         }
         return categories;
     }
@@ -87,7 +85,7 @@ public class ProductActivity extends ListActivity {
 
         InventoryItemService inventoryItemServiceImpl = new InventoryItemServiceImpl(context);
 
-        CategoryService categoryService = new CategoryServiceImpl(context);
+        CategoryService categoryService = new CategoryServiceImpl();
         Category category = categoryService.fetchCategoryByName(selectedCategory);
         if(category == null) {
             Toast.makeText(context, "Category is not yet initialize", Toast.LENGTH_LONG).show();
@@ -100,15 +98,9 @@ public class ProductActivity extends ListActivity {
         if(existingInventoryItem != null) {
             Toast.makeText(context, "Product already exist in category "+ selectedCategory, Toast.LENGTH_LONG).show();
         } else {
-            Product product = new Product();
-            product.setName(productName);
-            product.setUnitPrice(unitPrice);
+            Product product = new Product(productName, unitPrice);
 
-            InventoryItem inventoryItem = new InventoryItem();
-            inventoryItem.setProduct(product);
-            inventoryItem.setCategory(category);
-            inventoryItem.setQuantity(quantity);
-
+            InventoryItem inventoryItem = new InventoryItem(product, quantity, category);
             inventoryItemServiceImpl.create(inventoryItem);
             Toast.makeText(context, "New item added successfully", Toast.LENGTH_LONG).show();
         }

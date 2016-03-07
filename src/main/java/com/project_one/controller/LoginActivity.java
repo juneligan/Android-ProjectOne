@@ -11,11 +11,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.R;
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.Configuration;
 import com.project_one.controller.api.v1.fragment.order.OrderViewPagerActivity;
 import com.project_one.controller.api.v1.fragment.product.ProductViewPagerActivity;
+import com.project_one.model.Role;
 import com.project_one.model.User;
+import com.project_one.service.RoleService;
+import com.project_one.service.RoleServiceImpl;
 import com.project_one.service.UserService;
 import com.project_one.service.UserServiceImpl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends Activity {
     public final static String EXTRA_MESSAGE = "com.example.jenunagil.myfirstapp.MESSAGE";
@@ -24,6 +32,9 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Configuration dbConfiguration = new Configuration.Builder(this).setDatabaseName("ProjectOne.db").create();
+        ActiveAndroid.initialize(dbConfiguration);
+        fetchTypeOfRoles();
         setContentView(R.layout.activity_login);
     }
 
@@ -52,11 +63,10 @@ public class LoginActivity extends Activity {
     public void authenticateUser(View view) {
         EditText usernameText = (EditText) findViewById(R.id.username);
         EditText passwordText = (EditText) findViewById(R.id.password);
-        User user = new User();
-        user.setUsername(usernameText.getText().toString());
-        user.setPassword(passwordText.getText().toString());
+        Role role = new Role();
+        User user = new User(role, usernameText.getText().toString(), passwordText.getText().toString());
 
-        UserService userService = new UserServiceImpl(context);
+        UserService userService = new UserServiceImpl();
         if(!userService.authenticateUser(user)) {
             Toast.makeText(context, "Invalid username/password", Toast.LENGTH_LONG).show();
         } else {
@@ -70,10 +80,10 @@ public class LoginActivity extends Activity {
         startActivity(intent);
     }
 
-    public void userActivity(View view) {
-        Intent intent = new Intent(this, UserActivity.class);
-        startActivity(intent);
-    }
+//    public void userActivity(View view) {
+//        Intent intent = new Intent(this, UserActivity.class);
+//        startActivity(intent);
+//    }
 
     public void categoryActivity(View view) {
         Intent intent = new Intent(this, CategoryActivity.class);
@@ -88,5 +98,14 @@ public class LoginActivity extends Activity {
     public void orderActivity(View view) {
         Intent intent = new Intent(this, OrderViewPagerActivity.class);
         startActivity(intent);
+    }
+
+    private List<String> fetchTypeOfRoles() {
+        RoleService roleService = new RoleServiceImpl();
+        List<String> typeOfRoles = new ArrayList<String>();
+        for(Role role : roleService.fetchAllRoles()) {
+            typeOfRoles.add(role.type.toString());
+        }
+        return typeOfRoles;
     }
 }

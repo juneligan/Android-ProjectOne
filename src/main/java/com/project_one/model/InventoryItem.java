@@ -1,48 +1,28 @@
 package com.project_one.model;
 
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 /**
  * Created by JenuNagil on 7/30/2015.
  */
-public class InventoryItem {
+@Table(name = "Inventory_Item")
+public class InventoryItem extends AbstractDomain {
 
-    private Long id;
-    private Product product;
-    private int quantity;
-    private Category category;
+    @Column(name = "product", index = true)
+    public Product product;
+    @Column(name = "quantity", index = true)
+    public int quantity;
+    @Column(name = "category", index = true)
+    public Category category;
 
     public InventoryItem() {
-        product = new Product();
+        super();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setProduct(Product product) {
+    public InventoryItem(Product product, int quantity, Category category) {
         this.product = product;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 }

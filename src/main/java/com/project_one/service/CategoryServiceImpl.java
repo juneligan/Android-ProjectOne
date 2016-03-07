@@ -12,11 +12,9 @@ import java.util.List;
  * Created by JenuNagil on 8/3/2015.
  */
 public class CategoryServiceImpl implements CategoryService {
-    private Context context;
     private CategoryDao categoryDaoImpl;
-    public CategoryServiceImpl(Context context) {
-        this.context = context;
-        categoryDaoImpl = new CategoryDaoImpl(context);
+    public CategoryServiceImpl() {
+        categoryDaoImpl = new CategoryDaoImpl();
     }
 
     @Override

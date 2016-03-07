@@ -2,11 +2,12 @@ package com.project_one.service;
 
 import android.content.Context;
 
+import com.project_one.common.type.RoleType;
 import com.project_one.dao.UserDao;
 import com.project_one.dao.UserDaoImpl;
+import com.project_one.model.Role;
 import com.project_one.model.User;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -15,26 +16,19 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private UserDao userDaoImpl;
-    private Context context;
-
-    public UserServiceImpl(Context context) {
-        try {
-            userDaoImpl = new UserDaoImpl(context);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private RoleService roleServiceImpl;
+    public UserServiceImpl() {
+        userDaoImpl = new UserDaoImpl();
+        roleServiceImpl = new RoleServiceImpl();
     }
 
-    public void setContext(Context context) {
-        this.context = context;
+    public User createUser(Role role, String username, String password) {
+        return userDaoImpl.createUser(role, username, password);
     }
 
-    public User createUser(Long roleId, String username, String password) {
-        return userDaoImpl.createUser(roleId, username, password);
-    }
-
-    public List<User> fetchAllUsers() {
-        return userDaoImpl.fetchAllUsers();
+    public List<User> fetchAllCustomer() {
+        Role role = roleServiceImpl.fetchRoleByType(RoleType.CUSTOMER);
+        return userDaoImpl.fetchAllUsersByRole(role);
     }
 
     @Override

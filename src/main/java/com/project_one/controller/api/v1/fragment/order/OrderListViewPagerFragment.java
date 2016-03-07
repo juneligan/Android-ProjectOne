@@ -52,7 +52,7 @@ public class OrderListViewPagerFragment extends ListFragment {
     }
 
     private void displayOrders() {
-        SalesOrderService salesOrderServiceImpl = new SalesOrderServiceImpl(getActivity());
+        SalesOrderService salesOrderServiceImpl = new SalesOrderServiceImpl();
 
         CustomArrayAdapter customArrayAdapter = new OrderListArrayAdapter(getActivity(), R.layout.inventory_items_row_for_manage_product_inventory_quantity, salesOrderServiceImpl.fetchAllOrders());
         customArrayAdapter.setActivity(getActivity());

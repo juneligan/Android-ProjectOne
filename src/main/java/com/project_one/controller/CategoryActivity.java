@@ -41,7 +41,7 @@ public class CategoryActivity extends Activity {
 
     public void create(View view) {
         EditText categoryNameText = (EditText) findViewById(R.id.category_name);
-        CategoryService categoryService = new CategoryServiceImpl(context);
+        CategoryService categoryService = new CategoryServiceImpl();
         if(categoryService.fetchCategoryByName(categoryNameText.getText().toString()) != null) {
             Toast.makeText(context, "Category already exist", Toast.LENGTH_LONG).show();
         } else {

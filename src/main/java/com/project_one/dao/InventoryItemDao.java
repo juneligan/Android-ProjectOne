@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface InventoryItemDao {
 
-    public InventoryItem create(InventoryItem item) throws SQLException;
+    public InventoryItem createOrUpdate(InventoryItem item) throws SQLException;
 
     public InventoryItem fetchInventoryItemById(Long itemId);
 
@@ -22,6 +22,4 @@ public interface InventoryItemDao {
     public InventoryItem fetchInventoryItemByNameAndCategory(String productName, Category category);
 
     public List<InventoryItem> fetchAllItems();
-
-    public InventoryItem update(InventoryItem updatedItem) throws SQLException;
 }
